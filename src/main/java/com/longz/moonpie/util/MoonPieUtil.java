@@ -1,6 +1,7 @@
 package com.longz.moonpie.util;
 
 import com.longz.moonpie.domian.CreateOrderVo;
+import com.longz.moonpie.domian.CreateWithdrawVo;
 import com.longz.moonpie.domian.Result;
 
 import java.util.HashMap;
@@ -13,12 +14,31 @@ import java.util.Map;
  */
 public class MoonPieUtil {
 
+    /**
+     * 查询upi
+     * @param url
+     * @param publicKey
+     * @return
+     * @throws Exception
+     */
     public static Result<String>  upi(String url,String publicKey) throws Exception{
         String resultString=HttpUtils.sendHttpGet(url+"?publicKey="+publicKey);
         assert resultString!=null;
         return JsonUtil.jsonToPojo(resultString,Result.class);
     }
 
+    /**
+     * 创建代收订单
+     * @param url
+     * @param publicKey
+     * @param secret
+     * @param tradeNo
+     * @param refNo
+     * @param upi
+     * @param notifyUrl
+     * @return
+     * @throws Exception
+     */
     public static Result<CreateOrderVo> createOrder(String url, String publicKey,String secret, String tradeNo, String refNo, String upi, String notifyUrl)throws  Exception{
         Map<String,String> map=new HashMap<String, String>();
         map.put("publicKey",publicKey);
@@ -39,6 +59,17 @@ public class MoonPieUtil {
         return JsonUtil.jsonToPojo(resultString,Result.class);
     }
 
+    /**
+     * 代收订单查询
+     * @param url
+     * @param publicKey
+     * @param secret
+     * @param orderNo
+     * @param refNo
+     * @param tradeNo
+     * @return
+     * @throws Exception
+     */
     public static Result<CreateOrderVo> orderQuery(String url,String publicKey,String secret,String orderNo,String refNo,String tradeNo)throws  Exception{
         Map<String,String> map=new HashMap<String, String>();
         map.put("publicKey",publicKey);
@@ -60,6 +91,40 @@ public class MoonPieUtil {
         assert resultString!=null;
         return JsonUtil.jsonToPojo(resultString,Result.class);
     }
+
+    /**
+     * 创建代付订单
+     * @param url
+     * @param publicKey
+     * @param secret
+     * @param withdrawVo
+     * @return
+     * @throws Exception
+     */
+    public static Result<Long> withdraw(String url, String publicKey, String secret, CreateWithdrawVo withdrawVo)throws Exception {
+        if (withdrawVo==null){
+            throw new Exception("Request parameters not found");
+        }
+        return withdraw(url,publicKey,secret,withdrawVo.getAmount(),withdrawVo.getBeneficaryName(),withdrawVo.getPhoneNumber(),withdrawVo.getAccountType(),withdrawVo.getBeneficaryAccount(),withdrawVo.getIfsCode(),withdrawVo.getTradeNo(),withdrawVo.getVpaAddress(),withdrawVo.getNotifyUrl());
+    }
+
+    /**
+     * 创建代付订单
+     * @param url
+     * @param publicKey
+     * @param secret
+     * @param amount
+     * @param beneficaryName
+     * @param phoneNumber
+     * @param accountType
+     * @param beneficaryAccount
+     * @param ifsCode
+     * @param tradeNo
+     * @param vpaAddress
+     * @param notifyUrl
+     * @return
+     * @throws Exception
+     */
     public static Result<Long> withdraw(String url,String publicKey,String secret,Integer amount,String beneficaryName,String phoneNumber,String accountType,String beneficaryAccount,String ifsCode,String tradeNo,String vpaAddress,String notifyUrl) throws Exception{
             Map<String,Object> map=new HashMap<String, Object>();
         String signData="amount="+amount;
@@ -97,14 +162,35 @@ public class MoonPieUtil {
         assert resultString!=null;
         return JsonUtil.jsonToPojo(resultString,Result.class);
     }
+
+    /**
+     * 代付查询
+     * @param url
+     * @param publicKey
+     * @param secret
+     * @param withdrawId
+     * @return
+     * @throws Exception
+     */
     public static  Result<Integer> withdrawQuery(String url,String publicKey,String secret,Long withdrawId)throws Exception{
-        String resultString=HttpUtils.sendHttpGet(url+"?publicKey="+publicKey+"&withdrawId="+withdrawId,Md5Utils.hash(secret+withdrawId));
+        String resultString=HttpUtils.sendHttpGetSign(url+"?publicKey="+publicKey+"&withdrawId="+withdrawId,Md5Utils.hash(secret+withdrawId));
         assert resultString!=null;
         return JsonUtil.jsonToPojo(resultString,Result.class);
     }
+
+    /**
+     * 代付查询
+     * @param url
+     * @param publicKey
+     * @param secret
+     * @param tradeNo
+     * @return
+     * @throws Exception
+     */
     public static Result<Integer> withdrawQuery(String url,String publicKey,String secret,String tradeNo) throws Exception{
-        String resultString=HttpUtils.sendHttpGet(url+"?publicKey="+publicKey+"&tradeNo="+tradeNo,Md5Utils.hash(secret+tradeNo));
+        String resultString=HttpUtils.sendHttpGetSign(url+"?publicKey="+publicKey+"&tradeNo="+tradeNo,Md5Utils.hash(secret+tradeNo));
         assert resultString!=null;
         return JsonUtil.jsonToPojo(resultString,Result.class);
     }
+
 }

@@ -57,4 +57,14 @@ public class CreateOrderVo implements Serializable {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "CreateOrderVo{" +
+                "orderNo='" + orderNo + '\'' +
+                ", rechargeAmount=" + rechargeAmount +
+                ", posetedDate='" + posetedDate + '\'' +
+                ", status='" + status + '\'' +
+                ", transferOrder=" + transferOrder +
+                '}';
+    }
 }

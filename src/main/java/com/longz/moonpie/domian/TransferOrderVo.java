@@ -47,4 +47,14 @@ public class TransferOrderVo implements Serializable {
     public void setRefNo(String refNo) {
         this.refNo = refNo;
     }
+
+    @Override
+    public String toString() {
+        return "TransferOrderVo{" +
+                "publicKey='" + publicKey + '\'' +
+                ", upi='" + upi + '\'' +
+                ", tradeNo='" + tradeNo + '\'' +
+                ", refNo='" + refNo + '\'' +
+                '}';
+    }
 }
