@@ -2,11 +2,7 @@ package com.longz.moonpie.domian;
 
 import java.io.Serializable;
 
-/**
- * @ClassName CreateOrderVo
- * @Author Leo
- * @Date 2021/2/24
- */
+
 public class CreateOrderVo implements Serializable {
     private String orderNo;
     private Integer rechargeAmount;

@@ -3,11 +3,6 @@ package com.longz.moonpie.util;
 
 import java.security.MessageDigest;
 
-/**
- * Md5加密方法
- * 
- * @author Jason
- */
 public class Md5Utils
 {
 

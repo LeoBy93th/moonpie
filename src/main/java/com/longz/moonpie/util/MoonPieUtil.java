@@ -7,11 +7,7 @@ import com.longz.moonpie.domian.Result;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @ClassName MoonPieUtil
- * @Author Leo
- * @Date 2021/2/23
- */
+
 public class MoonPieUtil {
 
     /**

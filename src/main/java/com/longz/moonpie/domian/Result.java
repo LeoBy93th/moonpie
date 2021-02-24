@@ -2,11 +2,7 @@ package com.longz.moonpie.domian;
 
 import java.io.Serializable;
 
-/**
- * @ClassName Result
- * @Author Leo
- * @Date 2021/2/23
- */
+
 public class Result <T> implements Serializable {
     private Integer code;
     private String msg;

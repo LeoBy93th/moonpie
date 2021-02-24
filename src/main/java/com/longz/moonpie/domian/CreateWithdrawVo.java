@@ -2,11 +2,7 @@ package com.longz.moonpie.domian;
 
 import java.io.Serializable;
 
-/**
- * @ClassName CreateWithdrawVo
- * @Author Leo
- * @Date 2021/2/24
- */
+
 public class CreateWithdrawVo implements Serializable {
     private Integer amount;
     private String beneficaryName;

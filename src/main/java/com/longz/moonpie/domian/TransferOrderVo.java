@@ -2,11 +2,7 @@ package com.longz.moonpie.domian;
 
 import java.io.Serializable;
 
-/**
- * @ClassName TransferOrderVo
- * @Author Leo
- * @Date 2021/2/24
- */
+
 public class TransferOrderVo implements Serializable {
     private String publicKey;
     private String upi;
