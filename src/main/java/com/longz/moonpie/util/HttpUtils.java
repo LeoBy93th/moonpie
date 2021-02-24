@@ -61,6 +61,17 @@ public class HttpUtils {
         return responseContent;
     }
 
+    public static String sendHttpGet(String url)throws  Exception{
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.addHeader("Content-Type", "application/json");
+        CloseableHttpResponse response = httpClient.execute(httpGet);
+        HttpEntity entity = response.getEntity();
+        String responseContent = EntityUtils.toString(entity, "UTF-8");
+        response.close();
+        httpClient.close();
+        return responseContent;
+    }
     public static String sendHttpGet(String url, String authorization) throws Exception {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
