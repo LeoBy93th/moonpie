@@ -42,7 +42,7 @@ public class MoonPieUtil {
         map.put("refNo",refNo);
         String signData="publicKey="+publicKey+"&refNo="+refNo+"&tradeNo="+tradeNo;
         if (notifyUrl!=null){
-            signData="notifyYUrl="+notifyUrl+"&"+signData;
+            signData="notifyUrl="+notifyUrl+"&"+signData;
             map.put("notifyUrl",notifyUrl);
         }
         if (upi!=null){
