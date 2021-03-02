@@ -1,28 +1,28 @@
 Author:Leo
-
+<br>
 获取upi:
 MoonpieUtil.upi(url,publicKey);
-
+<br>
 创建代收订单：
 MoonpieUtil.createOrder(url,publicKey,secret,tradeNo,refNo,upi,notifyUrl);
-
+<br>
 查询代收订单：
 MoonpieUtil.orderQuery(url,publicKey,secret,orderNo,refNo,tradeNo);
-
+<br>
 创建代付订单：
-第一种：MoonpieUtil.withdraw(url,publicKey,secret,amount,beneficaryName,phoneNumber,accontType,beneficaryAccount,ifsCode,tradeNo,vpaAddress,notifyUrl);
-第二种： CreateWithdrawVo createWithdrawVo=CreateWithdrawVo
-                .build()
-                .setAccountType(accountType)
-                .setAmount(amount)
-                .setBeneficaryAccount(beneficaryAccount)
-                .setBeneficaryName(beneficaryName)
-                .setIfsCode(ifsCode)
-                .setNotifyUrl(notifyUrl)
-                .setPhoneNumber(phoneNumber)
-                .setTradeNo(tradeNo)
-                .setVpaAddress(vpaAddress)
-                .end();
+<br>第一种：MoonpieUtil.withdraw(url,publicKey,secret,amount,beneficaryName,phoneNumber,accontType,beneficaryAccount,ifsCode,tradeNo,vpaAddress,notifyUrl);
+<br>第二种：<br>CreateWithdrawVo createWithdrawVo=CreateWithdrawVo
+                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.build()
+                <br>          .setAccountType(accountType)
+                <br>          .setAmount(amount)
+                <br>          .setBeneficaryAccount(beneficaryAccount)
+                <br>          .setBeneficaryName(beneficaryName)
+                <br>          .setIfsCode(ifsCode)
+                <br>          .setNotifyUrl(notifyUrl)
+                <br>          .setPhoneNumber(phoneNumber)
+                <br>          .setTradeNo(tradeNo)
+                <br>          .setVpaAddress(vpaAddress)
+                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.end();
         MoonPieUtil.withdraw(url,publicKey,secret,createWithdrawVo);
  
  代付查询by withdrawId:
