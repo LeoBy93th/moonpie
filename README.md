@@ -23,7 +23,7 @@ MoonpieUtil.orderQuery(url,publicKey,secret,orderNo,refNo,tradeNo);
                 <br>          .setTradeNo(tradeNo)
                 <br>          .setVpaAddress(vpaAddress)
                 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.end();
-        MoonPieUtil.withdraw(url,publicKey,secret,createWithdrawVo);
+ <br>MoonPieUtil.withdraw(url,publicKey,secret,createWithdrawVo);
  
  代付查询by withdrawId:
  MoonpieUtil:withdrawQuery(url,publicKey,secret,withdrawId);
