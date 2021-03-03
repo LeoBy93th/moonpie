@@ -13,9 +13,11 @@ public class CreateWithdrawVo implements Serializable {
     private String tradeNo;
     private String vpaAddress;
     private String notifyUrl;
+    private String email;
 
     public CreateWithdrawVo() {
     }
+
     private CreateWithdrawVo(Build build){
         this.amount=build.amount;
         this.beneficaryName=build.beneficaryName;
@@ -26,6 +28,7 @@ public class CreateWithdrawVo implements Serializable {
         this.tradeNo=build.tradeNo;
         this.vpaAddress=build.vpaAddress;
         this.notifyUrl=build.notifyUrl;
+        this.email=build.email;
     }
 
     public static Build build(){
@@ -102,6 +105,16 @@ public class CreateWithdrawVo implements Serializable {
     public void setNotifyUrl(String notifyUrl) {
         this.notifyUrl = notifyUrl;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public CreateWithdrawVo setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
     public static class Build{
         private Integer amount;
         private String beneficaryName;
@@ -112,6 +125,16 @@ public class CreateWithdrawVo implements Serializable {
         private String tradeNo;
         private String vpaAddress;
         private String notifyUrl;
+        private String email;
+
+        public String getEmail() {
+            return email;
+        }
+
+        public Build setEmail(String email) {
+            this.email = email;
+            return this;
+        }
 
         public Build setAmount(Integer amount) {
             this.amount = amount;

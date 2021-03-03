@@ -101,7 +101,7 @@ public class MoonPieUtil {
         if (withdrawVo==null){
             throw new Exception("Request parameters not found");
         }
-        return withdraw(url,publicKey,secret,withdrawVo.getAmount(),withdrawVo.getBeneficaryName(),withdrawVo.getPhoneNumber(),withdrawVo.getAccountType(),withdrawVo.getBeneficaryAccount(),withdrawVo.getIfsCode(),withdrawVo.getTradeNo(),withdrawVo.getVpaAddress(),withdrawVo.getNotifyUrl());
+        return withdraw(url,publicKey,secret,withdrawVo.getAmount(),withdrawVo.getBeneficaryName(),withdrawVo.getPhoneNumber(),withdrawVo.getAccountType(),withdrawVo.getBeneficaryAccount(),withdrawVo.getIfsCode(),withdrawVo.getTradeNo(),withdrawVo.getVpaAddress(),withdrawVo.getNotifyUrl(),withdrawVo.getEmail());
     }
 
     /**
@@ -121,7 +121,8 @@ public class MoonPieUtil {
      * @return
      * @throws Exception
      */
-    public static Result<Long> withdraw(String url,String publicKey,String secret,Integer amount,String beneficaryName,String phoneNumber,String accountType,String beneficaryAccount,String ifsCode,String tradeNo,String vpaAddress,String notifyUrl) throws Exception{
+
+    public static Result<Long> withdraw(String url,String publicKey,String secret,Integer amount,String beneficaryName,String phoneNumber,String accountType,String beneficaryAccount,String ifsCode,String tradeNo,String vpaAddress,String notifyUrl,String email) throws Exception{
             Map<String,Object> map=new HashMap<String, Object>();
         String signData="amount="+amount;
         map.put("publicKey",publicKey);
@@ -135,6 +136,10 @@ public class MoonPieUtil {
         if (beneficaryAccount!=null){
             map.put("beneficaryAccount",beneficaryAccount);
             signData=signData+"&beneficaryAccount="+beneficaryAccount;
+        }
+        if (email!=null){
+            map.put("email",email);
+            signData=signData+"&email="+email;
         }
         signData=signData+"&beneficaryName="+beneficaryName+"&clientRemark="+phoneNumber;
         if (ifsCode!=null){
