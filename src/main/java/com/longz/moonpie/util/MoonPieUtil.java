@@ -50,6 +50,8 @@ public class MoonPieUtil {
             map.put("upi",upi);
         }
         signData=signData+secret;
+        System.out.println(signData);
+        System.out.println(Md5Utils.hash(signData));
         String resultString=HttpUtils.sendHttpPostSign(url,JsonUtil.objectToJson(map),Md5Utils.hash(signData));
         assert resultString!=null;
         return JsonUtil.jsonToPojo(resultString,Result.class);
@@ -150,6 +152,7 @@ public class MoonPieUtil {
             map.put("notifyUrl",notifyUrl);
             signData=signData+"&notifyUrl="+notifyUrl;
         }
+        signData=signData+"&publicKey="+publicKey;
         if (tradeNo!=null){
             map.put("tradeNo",tradeNo);
             signData=signData+"&tradeNo="+tradeNo;
@@ -159,6 +162,7 @@ public class MoonPieUtil {
             signData=signData+"&vpaAddress="+vpaAddress;
         }
         signData=signData+secret;
+        System.out.println(signData);
         String resultString=HttpUtils.sendHttpPostSign(url,JsonUtil.objectToJson(map),Md5Utils.hash(signData));
         assert resultString!=null;
         return JsonUtil.jsonToPojo(resultString,Result.class);
@@ -193,5 +197,4 @@ public class MoonPieUtil {
         assert resultString!=null;
         return JsonUtil.jsonToPojo(resultString,Result.class);
     }
-
 }
