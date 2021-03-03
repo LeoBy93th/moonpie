@@ -3,9 +3,9 @@ package com.longz.moonpie.util;
 import com.longz.moonpie.domian.CreateOrderVo;
 import com.longz.moonpie.domian.CreateWithdrawVo;
 import com.longz.moonpie.domian.Result;
+import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 public class MoonPieUtil {
@@ -162,7 +162,7 @@ public class MoonPieUtil {
             signData=signData+"&vpaAddress="+vpaAddress;
         }
         signData=signData+secret;
-        System.out.println(signData);
+        System.out.println(Md5Utils.hash(signData));
         String resultString=HttpUtils.sendHttpPostSign(url,JsonUtil.objectToJson(map),Md5Utils.hash(signData));
         assert resultString!=null;
         return JsonUtil.jsonToPojo(resultString,Result.class);
@@ -196,5 +196,44 @@ public class MoonPieUtil {
         String resultString=HttpUtils.sendHttpGetSign(url+"?publicKey="+publicKey+"&tradeNo="+tradeNo,Md5Utils.hash(secret+tradeNo));
         assert resultString!=null;
         return JsonUtil.jsonToPojo(resultString,Result.class);
+    }
+
+    /**
+     * 签名生成
+     * @param map
+     * @param secret
+     * @return
+     */
+    public static String encodeSign(SortedMap<String,Object> map, String secret){
+        if(StringUtils.isEmpty(secret)){
+            throw new RuntimeException("secret is required");
+        }
+        Set<Map.Entry<String, Object>> entries = map.entrySet();
+        Iterator<Map.Entry<String, Object>> iterator = entries.iterator();
+        List<String> values = new ArrayList<String>();
+        while(iterator.hasNext()){
+            Map.Entry entry = (Map.Entry) iterator.next();
+            String k = String.valueOf(entry.getKey());
+            String v = String.valueOf(entry.getValue());
+            if (StringUtils.isNotEmpty(v) && entry.getValue() !=null && !"sign".equals(k) && !"secret".equals(k)) {
+                values.add(k + "=" + v);
+            }
+        }
+        String sign = StringUtils.join(values, "&")+secret;
+        return Md5Utils.hash(sign);
+    }
+
+    /**
+     * 校验签名
+     * @param sign
+     * @param map
+     * @param secret
+     * @return
+     */
+    public static boolean checkSign(String sign,SortedMap<String,Object> map,String secret){
+        if (StringUtils.isEmpty(sign)){
+            throw new RuntimeException("sign is required");
+        }
+        return sign.equals(encodeSign(map,secret));
     }
 }
