@@ -10,7 +10,7 @@ MoonpieUtil.createOrder(url,publicKey,secret,tradeNo,refNo,upi,notifyUrl);
 MoonpieUtil.orderQuery(url,publicKey,secret,orderNo,refNo,tradeNo);
 <br>
 创建代付订单：
-<br>第一种：MoonpieUtil.withdraw(url,publicKey,secret,amount,beneficaryName,phoneNumber,accontType,beneficaryAccount,ifsCode,tradeNo,vpaAddress,notifyUrl);
+<br>第一种：MoonpieUtil.withdraw(url,publicKey,secret,amount,beneficaryName,phoneNumber,accontType,beneficaryAccount,ifsCode,tradeNo,vpaAddress,notifyUrl,email);
 <br>第二种：<br>CreateWithdrawVo createWithdrawVo=CreateWithdrawVo
                 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.build()
                 <br>          .setAccountType(accountType)
