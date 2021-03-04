@@ -10,7 +10,7 @@ public class Result <T> implements Serializable {
 
     public Result() {
     }
-    boolean isSuccess(){
+    public boolean isSuccess(){
         return this.code==200;
     }
     public Integer getCode() {

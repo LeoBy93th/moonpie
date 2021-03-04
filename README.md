@@ -30,3 +30,6 @@ MoonpieUtil.orderQuery(url,publicKey,secret,orderNo,refNo,tradeNo);
  
  代付查询by tradeNo:
  MoonpieUtil.withdrawQuery(url,publicKey,secret,tradeNo);
+
+ 签名生成方法：MoonpieUtil.encodeSign(SortedMap<String,Object> map, String secret);
+SortedMap<String,Object>
