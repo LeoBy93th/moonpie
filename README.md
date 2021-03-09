@@ -1,4 +1,6 @@
 Author:Leo
+
+工具类
 <br>
 获取upi:
 MoonpieUtil.upi(url,publicKey);
@@ -33,3 +35,48 @@ MoonpieUtil.orderQuery(url,publicKey,secret,orderNo,refNo,tradeNo);
 
  签名生成方法：MoonpieUtil.encodeSign(SortedMap<String,Object> map, String secret);
 SortedMap<String,Object>
+ 签名校验方法：MoonpieUtil.checkSign()
+
+
+Moonpie服务使用
+
+Spring项目：
+
+加载进容器：
+    @Bean
+    public MoonpieService moonpieInit(){
+        return new Moonpie(host,publicKey,secret);
+    }
+
+使用
+
+    @Autowired
+    private MoonpieService moonpie;
+
+获取upi:
+
+    moonpie.getUpi();
+
+创建代收订单:
+
+    CreateOrderRequest request = new CreateOrderRequest();
+    request.setTradeNo("uudsafasd1");
+    request.setRefNo("sdaq24123");
+        try {
+            Result<CreateOrderVo> order = moonpie.createOrder(request);
+            System.out.println("---->"+ JsonUtil.objectToJson(order));
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
+
+查询代收订单:
+
+    OrderQueryRequest request = new OrderQueryRequest();
+    request.setTradeNo("uudsafasd1");
+    try {
+        Result<CreateOrderVo> query = moonpie.orderQuery(request);
+        System.out.println("---->"+ JsonUtil.objectToJson(query));
+    } catch (ApiException e) {
+        e.printStackTrace();
+    }
+

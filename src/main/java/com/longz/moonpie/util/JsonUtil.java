@@ -4,11 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class JsonUtil {
     // 定义jackson对象
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    public static final ObjectMapper MAPPER = new ObjectMapper();
 
     /**
      * 将对象转换成json字符串。
@@ -44,7 +47,19 @@ public class JsonUtil {
         }
         return null;
     }
-
+    /**
+     * 将json数据转换成map对象
+     * @param jsonData
+     * @return
+     */
+    public static SortedMap<String,Object> jsonToMap(String jsonData){
+        try {
+            return MAPPER.readValue(jsonData, TreeMap.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
     /**
      * 将json数据转换成pojo对象list
      * <p>Title: jsonToList</p>

@@ -8,8 +8,57 @@ public class TransferOrderVo implements Serializable {
     private String upi;
     private String tradeNo;
     private String refNo;
-
+    private Integer amount;
+    private String email;
+    private String phone;
+    private String notifyUrl;
+    private String name;
     public TransferOrderVo() {
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public TransferOrderVo setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public TransferOrderVo setAmount(Integer amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public TransferOrderVo setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public TransferOrderVo setPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public String getNotifyUrl() {
+        return notifyUrl;
+    }
+
+    public TransferOrderVo setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
+        return this;
     }
 
     public String getPublicKey() {
@@ -51,6 +100,11 @@ public class TransferOrderVo implements Serializable {
                 ", upi='" + upi + '\'' +
                 ", tradeNo='" + tradeNo + '\'' +
                 ", refNo='" + refNo + '\'' +
+                ", amount=" + amount +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", notifyUrl='" + notifyUrl + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
