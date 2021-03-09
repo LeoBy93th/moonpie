@@ -75,7 +75,7 @@ public interface MoonpieService {
      * @return
      * @throws ApiException
      */
-    TransferNotifyVo transferNotify(HttpServletRequest request)throws ApiException;
+    TransferNotifyVo transferNotify(HttpServletRequest request);
 
     /**
      * 代付回调
@@ -83,5 +83,5 @@ public interface MoonpieService {
      * @return
      * @throws ApiException
      */
-    WithdrawNotifyVo withdrawNotify(HttpServletRequest request) throws  ApiException;
+    WithdrawNotifyVo withdrawNotify(HttpServletRequest request);
 }
