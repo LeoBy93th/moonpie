@@ -12,6 +12,8 @@ public class TransferOrderVo implements Serializable {
     public TransferOrderVo() {
     }
 
+
+
     public String getPublicKey() {
         return publicKey;
     }

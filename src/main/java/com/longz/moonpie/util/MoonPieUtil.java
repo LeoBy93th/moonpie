@@ -1,10 +1,11 @@
 package com.longz.moonpie.util;
 
-import com.longz.moonpie.domian.CreateOrderVo;
-import com.longz.moonpie.domian.CreateWithdrawVo;
-import com.longz.moonpie.domian.Result;
+import com.longz.moonpie.domian.*;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.*;
 
 
@@ -12,10 +13,10 @@ public class MoonPieUtil {
 
     /**
      * 查询upi
-     * @param url
-     * @param publicKey
-     * @return
-     * @throws Exception
+     *  url
+     *  publicKey
+     * 
+     *  Exception
      */
     public static Result<String>  upi(String url,String publicKey) throws Exception{
         String resultString=HttpUtils.sendHttpGet(url+"?publicKey="+publicKey);
@@ -25,15 +26,15 @@ public class MoonPieUtil {
 
     /**
      * 创建代收订单
-     * @param url
-     * @param publicKey
-     * @param secret
-     * @param tradeNo
-     * @param refNo
-     * @param upi
-     * @param notifyUrl
-     * @return
-     * @throws Exception
+     *  url
+     *  publicKey
+     *  secret
+     *  tradeNo
+     *  refNo
+     *  upi
+     *  notifyUrl
+     * 
+     *  Exception
      */
     public static Result<CreateOrderVo> createOrder(String url, String publicKey,String secret, String tradeNo, String refNo, String upi, String notifyUrl)throws  Exception{
         Map<String,String> map=new HashMap<String, String>();
@@ -50,23 +51,27 @@ public class MoonPieUtil {
             map.put("upi",upi);
         }
         signData=signData+secret;
-        System.out.println(signData);
-        System.out.println(Md5Utils.hash(signData));
         String resultString=HttpUtils.sendHttpPostSign(url,JsonUtil.objectToJson(map),Md5Utils.hash(signData));
         assert resultString!=null;
-        return JsonUtil.jsonToPojo(resultString,Result.class);
+        Result<CreateOrderVo>  result= JsonUtil.jsonToPojo(resultString, Result.class);
+        if (result.isSuccess()){
+            String constr=JsonUtil.MAPPER.writeValueAsString(result.getData());
+            CreateOrderVo data=JsonUtil.jsonToPojo(constr,CreateOrderVo.class);
+            result.setData(data);
+        }
+        return result;
     }
 
     /**
      * 代收订单查询
-     * @param url
-     * @param publicKey
-     * @param secret
-     * @param orderNo
-     * @param refNo
-     * @param tradeNo
-     * @return
-     * @throws Exception
+     *  url
+     *  publicKey
+     *  secret
+     *  orderNo
+     *  refNo
+     *  tradeNo
+     * 
+     *  Exception
      */
     public static Result<CreateOrderVo> orderQuery(String url,String publicKey,String secret,String orderNo,String refNo,String tradeNo)throws  Exception{
         Map<String,String> map=new HashMap<String, String>();
@@ -87,17 +92,23 @@ public class MoonPieUtil {
         signData=signData+secret;
         String resultString=HttpUtils.sendHttpPostSign(url,JsonUtil.objectToJson(map),Md5Utils.hash(signData));
         assert resultString!=null;
-        return JsonUtil.jsonToPojo(resultString,Result.class);
+        Result<CreateOrderVo>  result= JsonUtil.jsonToPojo(resultString, Result.class);
+        if (result.isSuccess()){
+            String constr=JsonUtil.MAPPER.writeValueAsString(result.getData());
+            CreateOrderVo data=JsonUtil.jsonToPojo(constr,CreateOrderVo.class);
+            result.setData(data);
+        }
+        return result;
     }
 
     /**
      * 创建代付订单
-     * @param url
-     * @param publicKey
-     * @param secret
-     * @param withdrawVo
-     * @return
-     * @throws Exception
+     *  url
+     *  publicKey
+     *  secret
+     *  withdrawVo
+     * 
+     *  Exception
      */
     public static Result<Long> withdraw(String url, String publicKey, String secret, CreateWithdrawVo withdrawVo)throws Exception {
         if (withdrawVo==null){
@@ -108,20 +119,19 @@ public class MoonPieUtil {
 
     /**
      * 创建代付订单
-     * @param url
-     * @param publicKey
-     * @param secret
-     * @param amount
-     * @param beneficaryName
-     * @param phoneNumber
-     * @param accountType
-     * @param beneficaryAccount
-     * @param ifsCode
-     * @param tradeNo
-     * @param vpaAddress
-     * @param notifyUrl
-     * @return
-     * @throws Exception
+     *  url
+     *  publicKey
+     *  secret
+     *  amount
+     *  beneficaryName
+     *  phoneNumber
+     *  accountType
+     *  beneficaryAccount
+     *  ifsCode
+     *  tradeNo
+     *  vpaAddress
+     *  notifyUrl
+     * 
      */
 
     public static Result<Long> withdraw(String url,String publicKey,String secret,Integer amount,String beneficaryName,String phoneNumber,String accountType,String beneficaryAccount,String ifsCode,String tradeNo,String vpaAddress,String notifyUrl,String email) throws Exception{
@@ -170,12 +180,12 @@ public class MoonPieUtil {
 
     /**
      * 代付查询
-     * @param url
-     * @param publicKey
-     * @param secret
-     * @param withdrawId
-     * @return
-     * @throws Exception
+     *  url
+     *  publicKey
+     *  secret
+     *  withdrawId
+     * 
+     *  Exception
      */
     public static  Result<Integer> withdrawQuery(String url,String publicKey,String secret,Long withdrawId)throws Exception{
         String resultString=HttpUtils.sendHttpGetSign(url+"?publicKey="+publicKey+"&withdrawId="+withdrawId,Md5Utils.hash(secret+withdrawId));
@@ -185,12 +195,12 @@ public class MoonPieUtil {
 
     /**
      * 代付查询
-     * @param url
-     * @param publicKey
-     * @param secret
-     * @param tradeNo
-     * @return
-     * @throws Exception
+     *  url
+     *  publicKey
+     *  secret
+     *  tradeNo
+     * 
+     *  Exception
      */
     public static Result<Integer> withdrawQuery(String url,String publicKey,String secret,String tradeNo) throws Exception{
         String resultString=HttpUtils.sendHttpGetSign(url+"?publicKey="+publicKey+"&tradeNo="+tradeNo,Md5Utils.hash(secret+tradeNo));
@@ -200,9 +210,9 @@ public class MoonPieUtil {
 
     /**
      * 签名生成
-     * @param map
-     * @param secret
-     * @return
+     *  map
+     *  secret
+     * 
      */
     public static String encodeSign(SortedMap<String,Object> map, String secret){
         if(StringUtils.isEmpty(secret)){
@@ -225,15 +235,66 @@ public class MoonPieUtil {
 
     /**
      * 校验签名
-     * @param sign
-     * @param map
-     * @param secret
-     * @return
+     *  sign
+     *  map
+     *  secret
+     * 
      */
     public static boolean checkSign(String sign,SortedMap<String,Object> map,String secret){
         if (StringUtils.isEmpty(sign)){
             throw new RuntimeException("sign is required");
         }
         return sign.equals(encodeSign(map,secret));
+    }
+
+    /**
+     * 代付回调
+     *  request
+     *  secret
+     * 
+     */
+    public static WithdrawNotifyVo withdrawNotify(HttpServletRequest request,String secret){
+        String sign=request.getHeader("Sign");
+        String jsonString=requestForJsonString(request);
+        if (StringUtils.isEmpty(jsonString)){
+            return null;
+        }
+        if (checkSign(sign,JsonUtil.jsonToMap(jsonString),secret)){
+            return JsonUtil.jsonToPojo(jsonString,WithdrawNotifyVo.class);
+        }
+        return null;
+    }
+
+    /**
+     * 代收回调
+     *  request
+     *  secret
+     * 
+     */
+    public static TransferNotifyVo transferNotify(HttpServletRequest request,String secret){
+        String sign=request.getHeader("Sign");
+        String jsonString=requestForJsonString(request);
+        if (StringUtils.isEmpty(jsonString)){
+            return null;
+        }
+        if (checkSign(sign,JsonUtil.jsonToMap(jsonString),secret)){
+            return JsonUtil.jsonToPojo(jsonString,TransferNotifyVo.class);
+        }
+        return null;
+    }
+
+    private static String requestForJsonString(HttpServletRequest request){
+        try {
+            BufferedReader reader=new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF-8"));
+            StringBuffer buffer=new StringBuffer();
+            String inputString;
+            while ((inputString=reader.readLine())!=null){
+                buffer.append(inputString);
+            }
+            return buffer.toString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

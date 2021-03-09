@@ -8,11 +8,22 @@ public class CreateOrderVo implements Serializable {
     private Integer rechargeAmount;
     private String posetedDate;
     private String status;
+    private String tradeNo;
     private TransferOrderVo transferOrder;
 
     public TransferOrderVo getTransferOrder() {
         return transferOrder;
     }
+
+    public String getTradeNo() {
+        return tradeNo;
+    }
+
+    public CreateOrderVo setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo;
+        return this;
+    }
+
 
     public void setTransferOrder(TransferOrderVo transferOrder) {
         this.transferOrder = transferOrder;
@@ -60,6 +71,7 @@ public class CreateOrderVo implements Serializable {
                 ", rechargeAmount=" + rechargeAmount +
                 ", posetedDate='" + posetedDate + '\'' +
                 ", status='" + status + '\'' +
+                ", tradeNo='" + tradeNo + '\'' +
                 ", transferOrder=" + transferOrder +
                 '}';
     }
